@@ -7,7 +7,6 @@
     <list default="true" id="37516e34-b43a-4511-9a32-9fe41703c2ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PredictiveAlert.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/PredictiveAlert.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +59,7 @@
       <recent name="$PROJECT_DIR$/data" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/models" />
       <recent name="$PROJECT_DIR$/labels" />
     </key>
   </component>
@@ -80,7 +80,7 @@
       <updated>1773764560627</updated>
       <workItem from="1773764562266" duration="11121000" />
       <workItem from="1773862558660" duration="1937000" />
-      <workItem from="1773929496944" duration="5580000" />
+      <workItem from="1773929496944" duration="9570000" />
     </task>
     <servers />
   </component>
