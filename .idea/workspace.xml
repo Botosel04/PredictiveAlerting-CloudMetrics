@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37516e34-b43a-4511-9a32-9fe41703c2ee" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/evaluate.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/features.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/labeling.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PredictiveAlert.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/PredictiveAlert.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualize_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/visualize_data.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +48,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/filip/Coding/Projects/PredictiveAlerting/labels",
+    "last_opened_file_path": "/home/filip/Coding/Projects/PredictiveAlerting",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -55,6 +60,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/labels" />
       <recent name="$PROJECT_DIR$/data" />
     </key>
@@ -80,7 +87,9 @@
       <updated>1773764560627</updated>
       <workItem from="1773764562266" duration="11121000" />
       <workItem from="1773862558660" duration="1937000" />
-      <workItem from="1773929496944" duration="10283000" />
+      <workItem from="1773929496944" duration="16370000" />
+      <workItem from="1774008731959" duration="4495000" />
+      <workItem from="1774096323531" duration="11936000" />
     </task>
     <servers />
   </component>
