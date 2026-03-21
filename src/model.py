@@ -39,10 +39,11 @@ def build_model(n_estimators: int = 200, random_state: int = 42) -> RandomForest
     return RandomForestClassifier(
         n_estimators=n_estimators,
         class_weight="balanced",   # up-weights the minority (positive) class
-        max_depth=12,              # prevents deep trees from memorising noise
+        max_depth=10,              # prevents deep trees from memorising noise
         min_samples_leaf=5,        # requires at least 5 samples per leaf
         random_state=random_state,
         n_jobs=-1,
+        max_features='sqrt'
     )
 
 

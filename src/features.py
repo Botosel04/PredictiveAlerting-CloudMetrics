@@ -108,15 +108,14 @@ def engineer_features(df: pd.DataFrame, rolling_window_size: int = 12) -> pd.Dat
 
 
 # The feature columns the model trains and predicts on.
-# Changing this list here updates it everywhere automatically.
 FEATURE_COLS = [
     "z_score",
-    "clean_deviation",
+    # "clean_deviation",
     "wavelet_jitter",
     "hour_sin",
     "hour_cos",
-    "value_diff1",
-    "value_diff2",
+    # "value_diff1",
+    # "value_diff2",
     "ema_cross",
     "value_norm",
     "rolling_std_24",
