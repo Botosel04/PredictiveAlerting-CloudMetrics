@@ -41,7 +41,6 @@ def per_incident_recall(
         Timestamp for each row in y_probs (same index).
     anomaly_meta : list of dict
         Each dict has keys: 'w_start', 'crash', 'w_end'
-        (from labeling.get_anomaly_windows).
     threshold : float
         Probability threshold above which an alert is fired.
 
@@ -62,8 +61,7 @@ def per_incident_recall(
     total = len(anomaly_meta)
     lead_times = []
 
-    # Zones where alerts are expected (not FPs)
-    valid_zones = []   # (start, end) tuples
+    valid_zones = []   # (start, end)
     exclude_zones = [] # crash + recovery zones
 
     for meta in anomaly_meta:
@@ -74,7 +72,6 @@ def per_incident_recall(
         valid_zones.append((w_start, crash))
         exclude_zones.append((crash, w_end + pd.Timedelta(minutes=60)))
 
-        # Did any alert fire in [w_start, crash)?
         mask = (timestamps >= w_start) & (timestamps < crash)
         pre_probs = y_probs[mask.values]
         pre_ts    = timestamps[mask.values]
@@ -85,8 +82,7 @@ def per_incident_recall(
             lead_min = (crash - pre_ts.iloc[first_idx]).total_seconds() / 60
             lead_times.append(lead_min)
 
-    # Count false-positive alert *events* (consecutive alert ticks = 1 event)
-    # First, zero out alerts that fall inside valid or exclude zones
+    # Count false-positive alert events (consecutive alert ticks = 1 event)
     fp_mask = is_alert.copy()
     for ts_val, fired in zip(timestamps, fp_mask):
         if not fired:
@@ -165,30 +161,8 @@ def find_operating_point(
     sweep_df: pd.DataFrame,
     min_recall: float = 0.80,
 ) -> pd.Series | None:
-    """
-    Find the highest threshold that still meets the minimum recall target,
-    then among those, pick the one with fewest FP events per day.
-
-    Returns the row as a pd.Series, or None if no threshold meets min_recall.
-    """
     candidates = sweep_df[sweep_df["recall"] >= min_recall]
     if candidates.empty:
         return None
-    # Among candidates, prefer higher threshold (fewer FPs by construction)
-    return candidates.sort_values("threshold", ascending=False).iloc[0]
-
-
-def pr_curve_data(y_test: np.ndarray, y_probs: np.ndarray) -> dict:
-    """
-    Return precision, recall, thresholds, and average precision score.
-
-    Convenience wrapper around sklearn for use in the notebook.
-    """
-    precisions, recalls, thresholds = precision_recall_curve(y_test, y_probs)
-    ap = average_precision_score(y_test, y_probs)
-    return {
-        "precisions":  precisions,
-        "recalls":     recalls,
-        "thresholds":  thresholds,
-        "average_precision": ap,
-    }
+    # Pick the lowest FP/day among all rows that meet the recall target
+    return candidates.sort_values("fp_per_day", ascending=True).iloc[0]

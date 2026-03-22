@@ -7,8 +7,7 @@
     <list default="true" id="37516e34-b43a-4511-9a32-9fe41703c2ee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PredictiveAlert.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/PredictiveAlert.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visualize_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/visualize_data.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +24,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -39,6 +42,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -86,7 +90,8 @@
       <workItem from="1773862558660" duration="1937000" />
       <workItem from="1773929496944" duration="16370000" />
       <workItem from="1774008731959" duration="4495000" />
-      <workItem from="1774096323531" duration="15168000" />
+      <workItem from="1774096323531" duration="15816000" />
+      <workItem from="1774169006619" duration="3069000" />
     </task>
     <servers />
   </component>

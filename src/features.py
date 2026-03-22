@@ -35,11 +35,11 @@ def engineer_features(df: pd.DataFrame, rolling_window_size: int = 12) -> pd.Dat
 
     Returns
     -------
-    pd.DataFrame with all original columns plus feature columns.
+    pd.DataFrame with all original columns + feature columns.
     """
     df = df.sort_values("timestamp").reset_index(drop=True)
 
-    # ── Short-window statistical deviation ────────────────────────────────────
+    # Short-window statistical deviation
     rolling_mean = df["value"].rolling(window=rolling_window_size, min_periods=1).mean()
     rolling_std = (
         df["value"]
@@ -53,36 +53,35 @@ def engineer_features(df: pd.DataFrame, rolling_window_size: int = 12) -> pd.Dat
     rolling_median = df["value"].rolling(window=rolling_window_size, min_periods=1).median()
     df["median_deviation"] = df["value"] - rolling_median
 
-    # Suppress tiny deviations (< 5% of median) — noise reduction
+    # Suppress tiny deviations
     chomp_threshold = rolling_median * 0.05
     df["clean_deviation"] = np.where(
         np.abs(df["median_deviation"]) < chomp_threshold, 0.0, df["median_deviation"]
     )
 
-    # ── Momentum (velocity and acceleration) ──────────────────────────────────
-    df["value_diff1"] = df["value"].diff().fillna(0)        # step-to-step change
-    df["value_diff2"] = df["value_diff1"].diff().fillna(0)  # change in change
+    # Momentum (velocity and acceleration)
+    df["value_diff1"] = df["value"].diff().fillna(0)
+    df["value_diff2"] = df["value_diff1"].diff().fillna(0)
 
-    # ── EMA crossover — emerging trend signal ─────────────────────────────────
+    #  EMA crossover
     df["ema_fast"] = df["value"].ewm(span=5, adjust=False).mean()
     df["ema_slow"] = df["value"].ewm(span=20, adjust=False).mean()
     df["ema_cross"] = df["ema_fast"] - df["ema_slow"]
 
-    # ── Instability over longer windows ───────────────────────────────────────
-    # 2-hour window: short-term instability
+    # 2-hour window:
     df["rolling_std_24"] = (
         df["value"].rolling(window=24, min_periods=1).std().fillna(0)
     )
-    # 4-hour window: is the long-run variance increasing?
+    # 4-hour window
     df["rolling_std_48"] = (
         df["value"].rolling(window=48, min_periods=1).std().fillna(0)
     )
 
-    # 4-hour mean drift — is the baseline slowly shifting?
+    # 4-hour mean drift
     rolling_mean_48 = df["value"].rolling(window=48, min_periods=12).mean()
     df["long_trend"] = rolling_mean_48.diff(12).fillna(0)  # change over last 12 steps
 
-    # ── Haar wavelet jitter (high-frequency noise) ────────────────────────────
+    # Haar wavelet jitter (high-frequency noise) ────────────────────────────
     def get_haar_detail(window_data: np.ndarray) -> float:
         if len(window_data) < 2:
             return 0.0
@@ -96,18 +95,16 @@ def engineer_features(df: pd.DataFrame, rolling_window_size: int = 12) -> pd.Dat
         .fillna(0)
     )
 
-    # ── Cyclical time encoding ─────────────────────────────────────────────────
+    # Cyclical time encoding
     time_in_hours = df["timestamp"].dt.hour + df["timestamp"].dt.minute / 60.0
     df["hour_sin"] = np.sin(2 * np.pi * time_in_hours / 24.0)
     df["hour_cos"] = np.cos(2 * np.pi * time_in_hours / 24.0)
 
-    # ── Raw value (absolute CPU level) ────────────────────────────────────────
     df["value_norm"] = df["value"]
 
     return df
 
 
-# The feature columns the model trains and predicts on.
 FEATURE_COLS = [
     "z_score",
     # "clean_deviation",
@@ -137,6 +134,6 @@ def create_sliding_windows(
         if window_data.shape[0] < W:
             continue
         X.append(window_data.flatten())
-        y.append(df_clean.loc[i, "is_incident"])   # ← is_incident directly, no H shift
+        y.append(df_clean.loc[i, "is_incident"])
 
     return np.array(X), np.array(y)
